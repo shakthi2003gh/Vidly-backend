@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const home = require("./router/home");
 const genres = require("./router/genres");
+const customers = require("./router/customers");
 
 const app = express();
 
@@ -17,6 +18,7 @@ mongoose
 app.use(bodyParser.json());
 app.use("/api", home);
 app.use("/api/genres", genres);
+app.use("/api/customers", customers);
 
 const port = process.env.PORT;
 
