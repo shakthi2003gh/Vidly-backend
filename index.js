@@ -7,6 +7,7 @@ const home = require("./router/home");
 const movies = require("./router/movies");
 const genres = require("./router/genres");
 const customers = require("./router/customers");
+const rentals = require("./router/rentals");
 
 const app = express();
 
@@ -21,6 +22,7 @@ app.use("/api", home);
 app.use("/api/movies", movies);
 app.use("/api/genres", genres);
 app.use("/api/customers", customers);
+app.use("/api/rentals", rentals);
 
 const port = process.env.PORT;
 
