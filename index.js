@@ -8,8 +8,15 @@ const movies = require("./router/movies");
 const genres = require("./router/genres");
 const customers = require("./router/customers");
 const rentals = require("./router/rentals");
+const users = require("./router/users");
+const auth = require("./router/auth");
 
 const app = express();
+
+if (!process.env.JWT_KEY) {
+  console.error("FATAL ERROR: JWT_KEY is not defined.");
+  process.exit(1);
+}
 
 mongoose.set("strictQuery", true);
 mongoose
@@ -23,6 +30,8 @@ app.use("/api/movies", movies);
 app.use("/api/genres", genres);
 app.use("/api/customers", customers);
 app.use("/api/rentals", rentals);
+app.use("/api/users", users);
+app.use("/api/auth", auth);
 
 const port = process.env.PORT;
 
