@@ -1,8 +1,10 @@
 require("dotenv").config();
+require("express-async-errors");
 
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
+const error = require("./middleware/error");
 const home = require("./router/home");
 const movies = require("./router/movies");
 const genres = require("./router/genres");
@@ -12,6 +14,9 @@ const users = require("./router/users");
 const auth = require("./router/auth");
 
 const app = express();
+
+process.on("uncaughtException", console.log);
+process.on("unhandledRejection", console.log);
 
 if (!process.env.JWT_KEY) {
   console.error("FATAL ERROR: JWT_KEY is not defined.");
@@ -32,6 +37,7 @@ app.use("/api/customers", customers);
 app.use("/api/rentals", rentals);
 app.use("/api/users", users);
 app.use("/api/auth", auth);
+app.use(error);
 
 const port = process.env.PORT;
 
