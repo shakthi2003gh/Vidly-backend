@@ -25,12 +25,15 @@ if (!process.env.JWT_KEY) {
 
 mongoose.set("strictQuery", true);
 mongoose
-  .connect("mongodb://localhost/vidly")
-  .then(() => console.log("Connecting to MongoDB..."))
-  .catch(() => console.error("Could not connect to MongoDB..."));
+  .connect(process.env.db)
+  .then(() => {
+    module.exports = app.listen(port);
+    console.log(`Listening on port ${port}...`);
+  })
+  .catch((e) => console.error(`Could not connect to ${process.env.db}...`, e));
 
 app.use(bodyParser.json());
-app.use("/api", home);
+app.use("/", home);
 app.use("/api/movies", movies);
 app.use("/api/genres", genres);
 app.use("/api/customers", customers);
@@ -40,6 +43,3 @@ app.use("/api/auth", auth);
 app.use(error);
 
 const port = process.env.PORT;
-
-app.listen(port);
-console.log(`Listening on port ${port}...`);
