@@ -2,6 +2,7 @@ require("dotenv").config();
 require("express-async-errors");
 
 const express = require("express");
+const cors = require("cors");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const error = require("./middleware/error");
@@ -32,6 +33,7 @@ mongoose
   })
   .catch((e) => console.error(`Could not connect to ${process.env.db}...`, e));
 
+app.use(cors());
 app.use(bodyParser.json());
 app.use("/", home);
 app.use("/api/movies", movies);
